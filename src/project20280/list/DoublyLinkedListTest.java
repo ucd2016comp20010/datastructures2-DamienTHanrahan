@@ -67,6 +67,7 @@ class DoublyLinkedListTest {
         for (int i = 0; i < 5; ++i) ll.addLast(i);
 
         assertEquals(1, ll.get(1));
+        assertEquals(0, ll.get(0));
     }
 
     @Test
