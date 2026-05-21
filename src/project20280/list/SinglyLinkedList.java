@@ -22,7 +22,9 @@ public class SinglyLinkedList<E> implements List<E> {
          * @param n reference to a node that should follow the new node
          */
         public Node(E e, Node<E> n) {
-            // TODO
+            
+            this.element = e;
+            this.next = n;
         }
 
         // Accessor methods
@@ -33,7 +35,7 @@ public class SinglyLinkedList<E> implements List<E> {
          * @return the element stored at the node
          */
         public E getElement() {
-            return null;
+            return element;
         }
 
         /**
@@ -42,8 +44,8 @@ public class SinglyLinkedList<E> implements List<E> {
          * @return the following node
          */
         public Node<E> getNext() {
-            // TODO
-            return null;
+            
+            return next;
         }
 
         // Modifier methods
@@ -54,7 +56,8 @@ public class SinglyLinkedList<E> implements List<E> {
          * @param n the node that should follow this one
          */
         public void setNext(Node<E> n) {
-            // TODO
+            
+            this.next = n;
         }
     } //----------- end of nested Node class -----------
 
@@ -74,54 +77,176 @@ public class SinglyLinkedList<E> implements List<E> {
 
     //@Override
     public int size() {
-        // TODO
-        return 0;
+        
+        return size;
     }
 
     //@Override
     public boolean isEmpty() {
-        // TODO
-        return false;
+        
+        return size == 0;
     }
 
     @Override
     public E get(int position) {
-        // TODO
-        return null;
+        Node<E> walk = head;
+        int index =0; 
+        while (walk != null){
+
+            if (index == position) {
+                return walk.getElement();
+            }
+            else{
+                walk = walk.getNext();
+                index++;
+            }
+
+
+        }
+    throw new IndexOutOfBoundsException();
+
     }
 
     @Override
     public void add(int position, E e) {
-        // TODO
+        
+    Node<E> walk = head;
+    Node<E> added = new Node<>(e, walk);
+
+    if (position == 0) {
+        
+        head = added;
+        size++;
+        return;
+    
+    }
+    
+    int count = 0; 
+    while (walk != null){
+
+        if (count == position -1) {
+
+            added.setNext(walk.getNext());
+            walk.setNext(added);
+            size++;
+            return;
+
+
+        }
+        else {
+            count++;
+            walk = walk.getNext();
+        }
+        
+    }
+
+    throw new IndexOutOfBoundsException();
+
+
+
+
     }
 
 
     @Override
     public void addFirst(E e) {
-        // TODO
+        
+        Node<E> first = new Node<>(e, head);
+        head = first;
+        size++;
     }
 
     @Override
     public void addLast(E e) {
-        // TODO
+        Node<E> last = new Node<>(e, null);
+        if (head == null) {head = last; size++; return;}
+        
+       
+        else {
+
+            Node<E> walk = head;
+            while (walk != null) {
+                if (walk.getNext() == null) {
+                    walk.setNext(last);
+                    size++;
+                    return;
+                }
+                else {
+                    walk = walk.getNext();
+                }
+            }
+        }
     }
 
     @Override
     public E remove(int position) {
-        // TODO
-        return null;
+        
+        Node<E> walk = head;
+        if (walk == null){ throw new IndexOutOfBoundsException();}
+        else if(position == 0) {E element = walk.getElement(); head = walk.getNext(); size--; return element;}
+       
+        else {
+            int count = 0; 
+
+            while (walk.getNext() != null) {
+                if (count == position-1){
+
+                    E element = walk.getNext().getElement();
+                    walk.setNext(walk.getNext());
+                    size--;
+                    return element;
+
+                }
+                else{
+                    walk = walk.getNext();
+                    count++;
+
+                }
+
+            
+            }
+           
+        }
+
+        throw new IndexOutOfBoundsException();
+
+       
+        
     }
 
     @Override
     public E removeFirst() {
-        // TODO
-        return null;
+        
+        
+        if (head == null) {return null;}
+        E element = head.getElement();
+        head = head.getNext();
+        size--;
+        return element;
+        
     }
 
     @Override
     public E removeLast() {
-        // TODO
-        return null;
+        
+        Node<E> walk = head;
+        if (walk == null){ throw new IndexOutOfBoundsException();}
+        if (walk.getNext() == null){head = null; size--; return walk.getElement();}
+        while (walk.getNext() != null){
+            if (walk.getNext().getNext() == null){
+                E element = walk.getNext().getElement();
+                walk.setNext(null);
+                size--;
+                return element;
+            }
+            else{
+                walk = walk.getNext();
+            }
+
+
+        }
+
+        throw new IndexOutOfBoundsException();
     }
 
     //@Override
@@ -140,7 +265,7 @@ public class SinglyLinkedList<E> implements List<E> {
         @Override
         public E next() {
             E res = curr.getElement();
-            curr = curr.next;
+            curr = curr.getNext();
             return res;
         }
     }
@@ -169,10 +294,15 @@ public class SinglyLinkedList<E> implements List<E> {
         ll.addFirst(3);
         ll.addFirst(4);
         ll.addLast(-1);
-        //ll.removeLast();
-        //ll.removeFirst();
-        //System.out.println("I accept your apology");
-        //ll.add(3, 2);
+        System.out.println(ll);
+        ll.removeLast();
+        System.out.println(ll);
+        ll.removeFirst();
+        System.out.println(ll);
+        System.out.println("I accept your apology");
+        ll.add(3, 2);
+        System.out.println("reach me?");
+        System.out.println(ll);
         System.out.println(ll);
         ll.remove(5);
         System.out.println(ll);
