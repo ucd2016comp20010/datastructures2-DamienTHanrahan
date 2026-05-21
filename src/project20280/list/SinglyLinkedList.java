@@ -304,7 +304,7 @@ public class SinglyLinkedList<E> implements List<E> {
         System.out.println("reach me?");
         System.out.println(ll);
         System.out.println(ll);
-        ll.remove(5);
+        ll.remove(3);
         System.out.println(ll);
 
     }
