@@ -82,7 +82,7 @@ public class CircularlyLinkedList<E> implements List<E> {
 
        Node<E> temp = new Node <>(e, null);
 
-       if (isEmpty()) {tail = temp; tail.setNext(tail); return;}
+       if (isEmpty()) {tail = temp; tail.setNext(tail); size++; return;}
 
        else {
 
@@ -133,6 +133,7 @@ public class CircularlyLinkedList<E> implements List<E> {
                     if (walk.getNext() == tail){tail = walk;}
                     walk.setNext(walk.getNext().getNext());
                     size--;
+                    if (size ==0){tail= null; }
                     return element;
                 }
                 else{

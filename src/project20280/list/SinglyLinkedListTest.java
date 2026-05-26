@@ -2,6 +2,7 @@ package project20280.list;
 
 import org.junit.jupiter.api.Test;
 import project20280.interfaces.List;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -117,6 +118,70 @@ class SinglyLinkedListTest {
         ll.addLast(2);
         ll.addLast(3);
         assertEquals("[1, 2, 3]", ll.toString());
+    }
+
+    @Test 
+
+    void testSortedMerge(){
+
+        
+        SinglyLinkedList<Integer> a = new SinglyLinkedList<>();
+        SinglyLinkedList<Integer> b = new SinglyLinkedList<>();
+        SinglyLinkedList<Integer> c = new SinglyLinkedList<>();
+        Random r = new Random();
+
+        int j=1;
+        int k = 0;
+        
+        for (int i =0; i< 100; i++){
+
+            k = r.nextInt(j) + k + 1;
+            System.out.println(k);
+            c.addLast(k);
+            if (k%2 == 0){
+                a.addLast(k);
+            }
+            else{
+                b.addLast(k);
+            }
+
+            j = j + 3; 
+            System.out.println(j);
+        }
+
+        System.out.println(c);
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println();
+
+        a.sortedMerge(b); 
+
+        assertEquals(0, b.size());
+        assertEquals(100, c.size());
+        assertEquals(a.size(), c.size());
+
+        for (j=0; j<99; j++){
+
+            assertTrue(a.get(j) - a.get(j+1) <= 0); 
+            assertEquals(a.get(j), c.get(j)); 
+
+        }
+
+
+
+
+
+
+       
+    
+
+        
+        
+         
+        
+        
+
+
     }
 
 }

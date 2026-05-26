@@ -4,7 +4,9 @@ import project20280.interfaces.List;
 
 import java.util.Iterator;
 
-public class SinglyLinkedList<E> implements List<E> {
+import java.util.Random;
+
+public class SinglyLinkedList<E extends Comparable<E>> implements List<E> {
 
     private static class Node<E> {
 
@@ -283,6 +285,63 @@ public class SinglyLinkedList<E> implements List<E> {
         return sb.toString();
     }
 
+    public int compareTo(E a, E b){
+
+        return a.compareTo(b);
+
+
+    }
+
+    public void sortedMerge(SinglyLinkedList<E> list){
+
+        
+       
+        
+        Node<E> walk = head;
+
+        int i = 0;
+        
+
+        while (walk != null || !list.isEmpty()) {
+
+            if (list.isEmpty()) {return;}
+            else if(walk == null){
+                addLast(list.remove(0));
+            }
+
+            else{
+
+                E temp = list.get(0);
+
+                if (temp.compareTo(walk.getElement()) <= 0){
+
+                    add(i, list.remove(0));
+                    i++;
+                }
+                else{
+                    walk = walk.getNext();
+                    i++;
+                }
+
+
+            }
+
+
+        }
+
+
+
+
+        
+
+        
+        
+
+
+
+
+    }
+
     public static void main(String[] args) {
         SinglyLinkedList<Integer> ll = new SinglyLinkedList<Integer>();
         System.out.println("ll " + ll + " isEmpty: " + ll.isEmpty());
@@ -306,6 +365,58 @@ public class SinglyLinkedList<E> implements List<E> {
         System.out.println(ll);
         ll.remove(3);
         System.out.println(ll);
+
+
+        System.out.println("Now testing");
+        System.out.println();
+
+
+
+
+
+
+
+        Random r = new Random();
+        SinglyLinkedList<Integer> a = new SinglyLinkedList<>();
+        SinglyLinkedList<Integer> b = new SinglyLinkedList<>();
+
+        
+        int i = 10; 
+
+        
+        for(int j = 0; j<25; j++){
+
+            if (r.nextInt(2) > 0){
+
+                i = i + (r.nextInt(i));
+                System.out.println(i + " going into list A ");
+                a.addLast(i);
+
+            }
+
+            else{
+
+                i = i + (r.nextInt(i));
+                System.out.println(i + " going into list B ");
+                b.addLast(i);
+
+
+            }
+
+            
+        }
+
+        
+        
+        System.out.println(a);
+        System.out.println(b); 
+
+
+        a.sortedMerge(b);
+        System.out.println(a);
+        System.out.println(b); 
+
+
 
     }
 }
