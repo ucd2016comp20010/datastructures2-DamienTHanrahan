@@ -25,14 +25,7 @@ class StackViaQueue<E> implements Queue<E> {
         
     }
 
-    public void transfer(LinkedStack<E> a, LinkedStack<E> b) {
-
-        
-        if(a.isEmpty() || !b.isEmpty()) throw new IllegalArgumentException("param 1 must transfer to empty param 2");
-        while (!a.isEmpty()){
-            b.push(a.pop());
-        }
-    }
+    
 
    
    
@@ -56,12 +49,12 @@ class StackViaQueue<E> implements Queue<E> {
 
         if(s1.isEmpty()) {return null;}
 
-        transfer(s1, s2);
+        s1.transfer(s2);
 
         
         E temp = s2.top();
 
-        transfer(s2, s1);
+        s2.transfer(s1);
 
         return temp;
 
@@ -73,7 +66,7 @@ class StackViaQueue<E> implements Queue<E> {
 
         if(s1.isEmpty()) {return null;}
 
-        transfer(s1, s2);
+        s1.transfer(s2);
 
         
         E temp = s2.pop();
@@ -81,7 +74,7 @@ class StackViaQueue<E> implements Queue<E> {
         
         if (s2.isEmpty()) return temp;
        
-        transfer(s2, s1);
+        s2.transfer(s1);
 
         return temp;
 
