@@ -28,11 +28,13 @@ public class LinkedDeque<E> implements Deque<E> {
 
     @Override
     public E first() {
+        if(ll.isEmpty()) return null;
         return ll.first();
     }
 
     @Override
     public E last() {
+        if(ll.isEmpty()) return null;
         return ll.last();
     }
 
@@ -48,11 +50,14 @@ public class LinkedDeque<E> implements Deque<E> {
 
     @Override
     public E removeFirst() {
+
+        if(ll.isEmpty()) return null;
         return ll.removeFirst();
     }
 
     @Override
     public E removeLast() {
+        if(ll.isEmpty()) return null;
         return ll.removeLast();
     }
 
