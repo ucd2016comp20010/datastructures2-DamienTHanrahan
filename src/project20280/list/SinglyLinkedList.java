@@ -342,6 +342,19 @@ public class SinglyLinkedList<E extends Comparable<E>> implements List<E> {
 
     }
 
+    public SinglyLinkedList<E> copy(){
+
+        SinglyLinkedList<E> temp = new SinglyLinkedList<>();
+        Node<E> walk = head;
+
+        while(walk != null){
+            temp.addLast(walk.getElement());
+            walk = walk.getNext();
+        }
+
+        return temp;
+    }
+
     public static void main(String[] args) {
         SinglyLinkedList<Integer> ll = new SinglyLinkedList<Integer>();
         System.out.println("ll " + ll + " isEmpty: " + ll.isEmpty());
