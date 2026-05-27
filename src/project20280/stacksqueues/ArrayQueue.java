@@ -6,11 +6,14 @@ public class ArrayQueue<E> implements Queue<E> {
 
     private static final int CAPACITY = 1000;
     private E[] data;
-    private final int front = 0;
-    private final int size = 0;
+    private int front = -1;
+    private int nextFree = 0;
+    private int size = 0;
 
+    @SuppressWarnings("unchecked")
+    
     public ArrayQueue(int capacity) {
-        // TODO
+        data = (E[]) new Object[capacity];
 
     }
 
@@ -31,7 +34,18 @@ public class ArrayQueue<E> implements Queue<E> {
 
     @Override
     public void enqueue(E e) {
-        // TODO
+
+        boolean empty = isEmpty();
+        if (nextFree != front){
+            data[nextFree] = e;
+            nextFree = (nextFree + 1) % data.length ;
+            size++;
+            if (empty) {front++;}
+        }
+        else{
+            throw new StackOverflowError();
+        }
+        
     }
 
     @Override
@@ -41,14 +55,26 @@ public class ArrayQueue<E> implements Queue<E> {
 
     @Override
     public E dequeue() {
-        // TODO
-        return null;
+        
+        if (!isEmpty()){
+            
+            E temp = data[front];
+            data[front] = null;
+            front = (front + 1) % data.length;
+            size--;
+            return temp;
+        }
+        else{
+            throw new StackOverflowError();
+        }
+
+        
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder("[");
         for (int i = 0; i < size; ++i) {
-            E res = data[(front + i) % CAPACITY];
+            E res = data[(front + i) % data.length];
             sb.append(res);
             if (i != size - 1) sb.append(", ");
         }
